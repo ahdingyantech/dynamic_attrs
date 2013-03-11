@@ -23,7 +23,7 @@ class DynamicAttr
 
         define_method "update_#{name}" do |attrs|
           attrs.each do |field, value|
-            user.send("#{name}_#{field}=", value)
+            self.send("#{name}_#{field}=", value)
           end
         end
 
