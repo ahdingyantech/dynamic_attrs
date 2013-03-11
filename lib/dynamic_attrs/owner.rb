@@ -16,11 +16,6 @@ class DynamicAttr
           end
         end
 
-        define_method "_#{name}_type_valid?" do |field, value|
-          type = send("_#{name}_type_match")[field]
-          type.is_a?(Array) ? type.include?(value.class) : value.is_a?(type)
-        end
-
         define_method "update_#{name}" do |attrs|
           attrs.each do |field, value|
             self.send("#{field}=", value)
@@ -55,7 +50,7 @@ class DynamicAttr
 
         fields.each do |field, type|
           define_method "#{name}_#{field}=" do |value|
-            raise DynamicAttr::TypeMismatch.new if !send("_#{name}_type_valid?", field, value)
+            Helper.send "_to_#{type}", value
             relation = DynamicAttr.where(name: name, owner_type: self.class.to_s, owner_id: self.id, field: field)
             attr = relation.first ? relation.first : relation.new
             attr.update_attribute(:value, value.to_s)
