@@ -46,8 +46,8 @@ end
 读取和写入：
 -------------------
 ```ruby
-@user.student_attrs_sid = '0001'
-@user.student_attrs_sid
+@user.teacher_attrs_tid = '0001'
+@user.teacher_attrs_tid
 # => '0001'
 
 @user.student_attrs_is_graduated? = true
