@@ -27,6 +27,27 @@ class DynamicAttr
           end
         end
 
+        define_method name do
+          keys = fields.keys
+
+          model = self
+          Struct.new(*keys) do
+            def fields
+              self.to_h.keys
+            end
+
+            keys.each do |field|
+              define_method field do
+                model.send "#{name}_#{field}"
+              end
+
+              define_method "#{field}=" do |value|
+                model.send "#{name}_#{field}=", value
+              end
+            end
+          end.new
+        end
+
         define_singleton_method "where_#{name}" do |field, value|
           joins(:dynamic_attrs)
             .where(:dynamic_attrs => {owner_type: self.to_s, name: name, field: field, value: value})
