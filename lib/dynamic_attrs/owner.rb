@@ -50,11 +50,11 @@ class DynamicAttr
 
         fields.each do |field, type|
           define_method "#{name}_#{field}=" do |value|
-            Helper.send "_to_#{type}", value
+            converted_value = Helper.send("_to_#{type}", value)
             relation = DynamicAttr.where(name: name, owner_type: self.class.to_s, owner_id: self.id, field: field)
             attr = relation.first ? relation.first : relation.new
-            attr.update_attribute(:value, value.to_s)
-            value 
+            attr.update_attribute :value, converted_value
+            converted_value
           end
 
           define_method "#{name}_#{field}" do
