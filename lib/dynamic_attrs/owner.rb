@@ -21,7 +21,7 @@ class DynamicAttr
           type.is_a?(Array) ? type.include?(value.class) : value.is_a?(type)
         end
 
-        define_method "update_#{name}_attrs" do |attrs|
+        define_method "update_#{name}" do |attrs|
           attrs.each do |field, value|
             user.send("#{name}_#{field}=", value)
           end
