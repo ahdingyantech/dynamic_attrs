@@ -60,9 +60,9 @@ Get and set values:
 Query:
 ------
 ```ruby
-@user.where_student_attrs(:is_graduated, true)
+User.where_student_attrs(:is_graduated, true)
 # => ActiveRecord::Relation [...]
  
-@user.where_teacher_attrs(:age, 35)
+User.where_teacher_attrs(:age, 35)
 # => ActiveRecord::Relation [...]
 ```

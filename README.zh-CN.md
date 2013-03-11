@@ -44,7 +44,7 @@ end
 ```
 
 读取和写入：
--------------------
+----------
 ```ruby
 @user.teacher_attrs_tid = '0001'
 @user.teacher_attrs_tid
@@ -57,12 +57,12 @@ end
 # => true
 ```
 
-查询:
-------
+查询：
+-----
 ```ruby
-@user.where_student_attrs(:is_graduated, true)
+User.where_student_attrs(:is_graduated, true)
 # => ActiveRecord::Relation [...]
 
-@user.where_teacher_attrs(:age, 35)
+User.where_teacher_attrs(:age, 35)
 # => ActiveRecord::Relation [...]
 ```
