@@ -38,6 +38,12 @@ class DynamicAttr < ActiveRecord::Base
         end
       end
 
+      def update_dynamic_attrs(attrs)
+        attrs.each do |field, value|
+          self.send("#{field}=", value)
+        end
+      end
+
       def get_field_value_from_name(name, field)
         attr = DynamicAttr.where(name: name, owner_type: self.class.to_s, owner_id: self.id, field: field).first
 

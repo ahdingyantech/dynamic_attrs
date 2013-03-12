@@ -20,9 +20,6 @@ ActiveRecord::Schema.define do
     t.string  :field,      :null => false
     t.string  :value
   end unless table_exists?(:dynamic_attr)
-  
-  add_index :dynamic_attrs, [:owner_id, :owner_type]
-  add_index :dynamic_attrs, [:name, :field]
 end
 
 class Owner < ActiveRecord::Base
