@@ -7,9 +7,6 @@ shared_examples 'a dynamic attr accessor' do |field|
     subject {owner.send("test_attrs_#{field}=", values[field])}
 
     it {should be_a types[field]}
-    it 'raises an error when type mismatched' do
-      expect {owner.send "test_attrs_#{field}=", Object.new}.to raise_error(DynamicAttr::TypeMismatch)
-    end
   end
 
   describe "#test_attrs_#{field}" do
