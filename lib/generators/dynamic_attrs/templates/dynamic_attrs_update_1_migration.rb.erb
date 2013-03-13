@@ -1,6 +1,6 @@
-class CreateDynamicAttrs < ActiveRecord::Migration
+class DynamicAttrsUpdate1 < ActiveRecord::Migration
   def change
-    create_table :dynamic_attrs do |t|
+    change_table :dynamic_attrs do |t|
       t.integer :owner_id,   :null => false
       t.string  :owner_type, :null => false
       t.string  :name,       :null => false
