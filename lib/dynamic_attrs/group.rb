@@ -14,7 +14,7 @@ class DynamicAttr < ActiveRecord::Base
     delegate :new,    to: :relation
     delegate :create, to: :relation
 
-    def add_fields(fields)
+    def update_fields(fields)
       @fields.merge!(fields)
       _make_methods
     end
