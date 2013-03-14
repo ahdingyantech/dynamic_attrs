@@ -1,6 +1,7 @@
 class DynamicAttr < ActiveRecord::Base
   class Group
-    attr_reader :owner, :name, :fields, :dirty_records
+    attr_reader :owner, :name, :dirty_records
+    attr_accessor :fields
 
     def initialize(owner, name, fields: {})
       @name     = name
