@@ -20,7 +20,7 @@ class DynamicAttr < ActiveRecord::Base
       end
 
       def _make_methods(name, fields)
-        attr_accessible fields.keys.map {|field| "#{name}_#{field}"}
+        attr_accessible *fields.keys.map {|field| "#{name}_#{field}"}
 
         fields.keys.each do |field|
           define_method "#{name}_#{field}" do
