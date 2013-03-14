@@ -12,14 +12,14 @@ class DynamicAttr < ActiveRecord::Base
         define_method name do
           instance_variable_get("@#{name}") ||
           instance_variable_set("@#{name}", DynamicAttr::Group.new(self, name, fields: fields))
-          instance_variable_get("@#{name}").fields = fields
-          instance_variable_get("@#{name}")
         end
 
         define_method "#{name}_where" do |field, value|
           self.send(name).where(field: field, value: value)
         end
+      end
 
+      def _make_methods(name, fields)
         fields.keys.each do |field|
           define_method "#{name}_#{field}" do
             self.send(name).get(field)
