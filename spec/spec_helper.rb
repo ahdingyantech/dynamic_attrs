@@ -17,7 +17,6 @@ ActiveRecord::Schema.define do
     t.string  :owner_type, :null => false
     t.string  :name,       :null => false
     t.string  :field,      :null => false
-    t.string  :data_type
     t.string  :value
   end unless table_exists?(:dynamic_attr)
 end

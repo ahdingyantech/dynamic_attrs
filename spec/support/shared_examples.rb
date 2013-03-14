@@ -1,5 +1,5 @@
 shared_examples 'a dynamic attrs group' do |name|
-  before {Owner.has_dynamic_attrs :test_attrs}
+  before {Owner.has_dynamic_attrs :test_attrs, fields: fields}
 
   describe "#{name}" do
     subject {owner.send("#{name}")}
@@ -9,21 +9,18 @@ shared_examples 'a dynamic attrs group' do |name|
   end
 end
 
-shared_examples 'a dynamic group field accessor' do |field, value, type|
-  let(:group)  {owner.test_attrs}
-  before       {group.add_fields(fields)}
-
-  describe '##{field}' do
-    subject {group.send("#{field}")}
+shared_examples 'a dynamic field accessor' do |field, value, type|
+  describe '#test_attrs_#{field}' do
+    subject {owner.send("test_attrs_#{field}")}
 
     it {should be nil}
   end
 
-  describe '##{field}=' do
-    subject {group.send("#{field}=", value)}
+  describe '#test_attrs_#{field}=' do
+    subject {owner.send("test_attrs_#{field}=", value)}
 
-    specify {expect{subject}.to change{group.send("#{field}")}.from(nil).to(value)}
-    it {should be_a type}
+    specify {expect{subject;owner.save}.to change{owner.send("test_attrs_#{field}")}.from(nil).to(value)}
+    specify {expect{subject;owner.save}.to change{owner.dynamic_attrs.count}.by(1)}
   end
 
 end

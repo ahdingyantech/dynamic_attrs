@@ -10,5 +10,13 @@ module DAType
   def to_ruby
     self.value
   end
-end
 
+  def self.dispatch(sym)
+    case sym
+    when :string   then DAString
+    when :integer  then DAInteger
+    when :datetime then DADateTime
+    when :boolean  then DABoolean
+    end
+  end
+end
