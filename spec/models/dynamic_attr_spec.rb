@@ -31,11 +31,10 @@ describe DynamicAttr do
     context 'when supplied a updater' do
       before do
         Owner.has_dynamic_attrs(:test_attrs,
-                                fields:  fields,
                                 updater: lambda {{another_boolean: :boolean}})
       end
 
-      it_behaves_like 'a dynamic field accessor', :boolean, true, TrueClass
+      it_behaves_like 'a dynamic field accessor', :another_boolean, true, TrueClass
     end
   end
 
