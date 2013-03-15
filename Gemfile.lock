@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dynamic_attrs (0.0.1)
+    dynamic_attrs (0.1.0)
       activerecord (~> 3.2.12)
       railties (~> 3.2.12)
 

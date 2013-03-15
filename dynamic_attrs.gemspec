@@ -1,13 +1,19 @@
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+
+require 'dynamic_attrs/version'
+
 Gem::Specification.new do |s|
   s.name        = 'dynamic_attrs'
-  s.version     = '0.0.1'
-  s.date        = '2013-03-11'
+  s.version     = DynamicAttr::VERSION
   s.summary     = 'Dynamic attributes for ActiveRecord!'
-  s.description = 'Dynamic attributes for ActiveRecord!'
+  s.description = 'Dynamic Attrs is a customizable database column library for ActiveRecord.'
   s.authors     = ['Kaid Wong']
   s.email       = 'kaid@kaid.me'
-  s.files       = ['lib/dynamic_attrs.rb']
+  s.files       = Dir.glob('lib/**/*[^(~|#)]') + %w(dynamic_attrs.gemspec)
   s.homepage    = 'http://github.com/kaid/dynamic_attrs'
+
+  s.required_ruby_version = '>= 2.0'
 
   s.add_dependency('activerecord', '~> 3.2.12')
   s.add_dependency('railties', '~> 3.2.12')
