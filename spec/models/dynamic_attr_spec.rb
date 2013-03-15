@@ -27,6 +27,7 @@ describe DynamicAttr do
     it_behaves_like 'a dynamic field accessor', :integer,  16,           Integer
     it_behaves_like 'a dynamic field accessor', :datetime, DateTime.now, DateTime
     it_behaves_like 'a dynamic field accessor', :boolean,  false,        FalseClass
+    specify {expect{subject.test_attrs_not_defined}.to raise_error(NoMethodError)}
 
     context 'when supplied a updater' do
       before do
