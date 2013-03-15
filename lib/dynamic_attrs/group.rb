@@ -1,23 +1,18 @@
 class DynamicAttr < ActiveRecord::Base
   class Group
-    attr_reader :owner, :name, :dirty_records, :fields
+    attr_reader :owner, :name, :dirty_records, :fields, :updater
 
-    def initialize(owner, name, fields: {})
-      @name     = name
-      @owner    = owner
-      @fields   = fields
+    def initialize(owner, name, fields: {}, updater: nil)
+      @name    = name
+      @owner   = owner
+      @fields  = fields
+      @updater = updater
       @dirty_records = {}
-      _make_methods
     end
 
     delegate :where,  to: :relation
-    delegate :new,    to: :relation
+    delegate :build,  to: :relation
     delegate :create, to: :relation
-
-    def update_fields(fields)
-      @fields.merge!(fields)
-      _make_methods
-    end
 
     def relation
       owner.dynamic_attrs.where(name: name)
@@ -42,16 +37,18 @@ class DynamicAttr < ActiveRecord::Base
 
   private
 
-    def _make_methods
-      owner.class._make_methods(self.name, self.fields)
+    def _update_fields!
+      fields.merge!(updater.call)
     end
 
     def _get_record(field)
-      self.relation.find_by_field(field) || self.new(field: field)
+      _update_fields! if updater
+      raise NoMethodError.new("#{name}_#{field}") if fields[field].blank?
+      relation.find_by_field(field) || build(field: field)
     end
  
     def _get_type(field)
-      DAType.dispatch(self.fields[field])
+      DAType.dispatch(fields[field])
     end
   end
 end

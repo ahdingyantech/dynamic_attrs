@@ -27,6 +27,16 @@ describe DynamicAttr do
     it_behaves_like 'a dynamic field accessor', :integer,  16,           Integer
     it_behaves_like 'a dynamic field accessor', :datetime, DateTime.now, DateTime
     it_behaves_like 'a dynamic field accessor', :boolean,  false,        FalseClass
+
+    context 'when supplied a updater' do
+      before do
+        Owner.has_dynamic_attrs(:test_attrs,
+                                fields:  fields,
+                                updater: lambda {{another_boolean: :boolean}})
+      end
+
+      it_behaves_like 'a dynamic field accessor', :boolean, true, TrueClass
+    end
   end
 
   describe DynamicAttr::Group do
