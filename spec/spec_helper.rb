@@ -4,6 +4,8 @@ require 'dynamic_attrs'
 require 'factory_girl'
 require 'database_cleaner'
 FactoryGirl.find_definitions
+require 'coveralls'
+Coveralls.wear!
 
 ActiveRecord::Base.logger = ActiveSupport::BufferedLogger.new(File.dirname(__FILE__) + "/debug.log")
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
