@@ -35,6 +35,7 @@ describe DynamicAttr do
                                 updater: lambda {{another_boolean: :boolean}})
       end
 
+      specify {owner.test_attrs.fields.should eq({another_boolean: :boolean})}
       it_behaves_like 'a dynamic field accessor', :another_boolean, true, TrueClass
     end
   end

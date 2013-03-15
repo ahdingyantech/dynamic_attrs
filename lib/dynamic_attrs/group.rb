@@ -35,14 +35,13 @@ class DynamicAttr < ActiveRecord::Base
       @dirty_records = {}
     end
 
-  private
-
-    def _update_fields!
-      fields.merge!(updater.call)
+    def fields
+      updater ? @fields.merge!(updater.call) : @fields
     end
 
+  private
+
     def _get_record(field)
-      _update_fields! if updater
       raise NoMethodError.new("#{name}_#{field}") if fields[field].blank?
       relation.find_by_field(field) || build(field: field)
     end
