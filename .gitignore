@@ -3,3 +3,4 @@
 .DS_*
 *.swp
 *.log
+coverage

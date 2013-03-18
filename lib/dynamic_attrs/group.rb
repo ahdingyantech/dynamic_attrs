@@ -1,6 +1,6 @@
 class DynamicAttr < ActiveRecord::Base
   class Group
-    attr_reader :owner, :name, :dirty_records, :fields, :updater
+    attr_reader :owner, :name, :dirty_records, :updater
 
     def initialize(owner, name, fields: {}, updater: nil)
       @name    = name
@@ -9,6 +9,8 @@ class DynamicAttr < ActiveRecord::Base
       @updater = updater
       @dirty_records = {}
     end
+
+    class UndefinedAccessor < NoMethodError; end
 
     delegate :where,  to: :relation
     delegate :build,  to: :relation
@@ -42,7 +44,7 @@ class DynamicAttr < ActiveRecord::Base
   private
 
     def _get_record(field)
-      raise NoMethodError.new("#{name}_#{field}") if fields[field].blank?
+      raise UndefinedAccessor.new if fields[field].blank?
       relation.find_by_field(field) || build(field: field)
     end
  
