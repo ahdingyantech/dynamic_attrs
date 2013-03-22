@@ -1,8 +1,8 @@
-VERSION = File.read(File.expand_path('../VERSION', __FILE__)).strip
+version = File.read(File.expand_path('../VERSION', __FILE__)).strip
 
 Gem::Specification.new do |s|
   s.name        = 'dynamic_attrs'
-  s.version     = VERSION
+  s.version     = version
   s.summary     = 'Dynamic attributes for ActiveRecord!'
   s.description = 'Dynamic Attrs is a customizable database column library for ActiveRecord.'
   s.authors     = ['Kaid Wong']
