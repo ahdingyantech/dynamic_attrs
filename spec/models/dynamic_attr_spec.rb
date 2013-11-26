@@ -25,10 +25,10 @@ describe DynamicAttr do
       it_behaves_like "a dynamic attrs group", :test_attrs
     end
 
-    it_behaves_like "a dynamic field accessor", name, :string,   "string",     String
-    it_behaves_like "a dynamic field accessor", name, :integer,  16,           Integer
-    it_behaves_like "a dynamic field accessor", name, :datetime, DateTime.now, DateTime
-    it_behaves_like "a dynamic field accessor", name, :boolean,  false,        FalseClass
+    it_behaves_like "a dynamic field accessor", name, :string,   "string",     "string1",        String
+    it_behaves_like "a dynamic field accessor", name, :integer,  16,           17,               Integer
+    it_behaves_like "a dynamic field accessor", name, :datetime, DateTime.now, DateTime.now + 1, DateTime
+    it_behaves_like "a dynamic field accessor", name, :boolean,  false,        true,             FalseClass, TrueClass
     specify {expect{subject.test_attrs_not_defined}.to raise_error(NoMethodError)}
 
     context "when supplied a updater" do
@@ -39,7 +39,7 @@ describe DynamicAttr do
       end
 
       specify {owner.test_attrs1.fields.should eq({another_boolean: :boolean})}
-      it_behaves_like "a dynamic field accessor", name1, :another_boolean, true, TrueClass
+      it_behaves_like "a dynamic field accessor", name1, :another_boolean, true, false, TrueClass, FalseClass
     end
   end
 
