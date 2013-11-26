@@ -7,7 +7,7 @@ class DynamicAttr < ActiveRecord::Base
 
     module ClassMethods
       def has_dynamic_attrs(name, fields: {}, updater: nil)
-        has_many :dynamic_attrs, as: :owner, conditions: {:name => name}
+        has_many :dynamic_attrs, as: :owner
         before_save {|r| r.send(name).save}
 
         @dynamic_attrs_names ||= []
